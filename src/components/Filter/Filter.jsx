@@ -3,9 +3,8 @@ import shortid from 'shortid';
 import s from '../Filter/Filter.module.css'
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import contactsActions from '../../redux/contacts/contacts-actions'
-
-
+import { contactsSelectors} from '../../redux/contacts';
+import { setFilter } from '../../redux/contacts';
  const Filter = ({ value, onChange })=> {
     return (
         <label className={s.label}
@@ -21,11 +20,11 @@ import contactsActions from '../../redux/contacts/contacts-actions'
 }
 
 const mapStateToProps = (state) => ({
-  value: state.contacts.filter,
+  value: contactsSelectors.getFilter(state),
 });
 
 const mapDispatchToProps = dispatch => ({
-  onChange: event => dispatch(contactsActions.contactCheck(event.target.value)),
+  onChange: event => dispatch(setFilter(event.target.value)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Filter)

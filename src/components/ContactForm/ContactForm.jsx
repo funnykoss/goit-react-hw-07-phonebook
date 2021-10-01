@@ -4,7 +4,7 @@ import { useState} from "react";
 import s from '../ContactForm/ContactForm.module.css'
 import PropTypes from 'prop-types';
 import { connect } from "react-redux";
-import contactsActions from '../../redux/contacts/contacts-actions'
+import { contactsOperations, contactsSelectors } from "../../redux/contacts";
 
 
 
@@ -93,19 +93,19 @@ import contactsActions from '../../redux/contacts/contacts-actions'
 //     return
 //   }
 // }
-const mapStateToProps = ({ contacts }) => ({
-  contacts: contacts.items,
+const mapStateToProps = (state) => ({
+  contacts:contactsSelectors.getContacts(state),
 });
   
 const mapDispatchToProps = dispatch => ({
 
- addContact: (name,number) => dispatch(contactsActions.addContact(name,number)),
+ addContact: (name,number) => dispatch(contactsOperations.addContacts(name,number)),
 });
 
 export default connect(mapStateToProps,mapDispatchToProps)(ContactForm)
 
 ContactForm.propTypes = {
   addContact: PropTypes.func.isRequired,
-  contacts: PropTypes.array.isRequired,
+  // contacts: PropTypes.array.isRequired,
 
 }
