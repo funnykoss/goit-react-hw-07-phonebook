@@ -27,21 +27,15 @@ const ContactList = ({  onDeleteContact  }) => {
 }
 
 
-const mapStateToProps = (state) => {
-  return {
-      contacts: contactsSelectors.getVisibleContacts(state),
-     };
-    
-};
+const mapStateToProps = (state) => ({
+  contacts: contactsSelectors.getVisibleContacts(state),
+ });
 
 const mapDispatchToProps = dispatch => ({
-  
-  onDeleteContact: id => dispatch(contactsOperations.deleteContacts(id)),
+    onDeleteContact: id => dispatch(contactsOperations.deleteContacts(id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ContactList)
-
-
 ContactList.prototype = {
   contacts: PropTypes.object.isRequired,
   onDeleteContact: PropTypes.func.isRequired,

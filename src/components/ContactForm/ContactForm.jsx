@@ -1,21 +1,19 @@
 import { useState} from "react";
-
-
-import s from '../ContactForm/ContactForm.module.css'
-import PropTypes from 'prop-types';
 import { connect } from "react-redux";
 import { contactsOperations, contactsSelectors } from "../../redux/contacts";
+import s from '../ContactForm/ContactForm.module.css'
+import PropTypes from 'prop-types';
+
 
 
 
  const  ContactForm = ({ addContact, contacts})=>{
   const [name, setName] = useState('');
-   const [number, setNumber] = useState('');
- const handlerChange = event => {
-  
+  const [number, setNumber] = useState('');
+
+  const handlerChange = event => {
     const { name, value } = event.target;
-     
-      switch (name) {
+     switch (name) {
         case 'name':
           setName(value)
           break;
@@ -37,7 +35,6 @@ import { contactsOperations, contactsSelectors } from "../../redux/contacts";
           return;
       }
       addContact(name, number);
-      
         reset();
     }
       function reset() {
@@ -80,32 +77,18 @@ import { contactsOperations, contactsSelectors } from "../../redux/contacts";
  
  }
 
-// const checkContactsName = (state) => {
-//   const { name, number, items } = state.contacts
-//   const newContact = {
-//     id: shortid.generate(),
-//     name,
-//     number,
-//   };
-//   const contactCheck = items.find(({ name }) => name === newContact.name);
-//   if (contactCheck !== undefined) {
-//     alert(`${newContact.name} is already in contact`);
-//     return
-//   }
-// }
-const mapStateToProps = (state) => ({
+ const mapStateToProps = (state) => ({
   contacts:contactsSelectors.getContacts(state),
 });
   
 const mapDispatchToProps = dispatch => ({
-
- addContact: (name,number) => dispatch(contactsOperations.addContacts(name,number)),
+  addContact: (name,number) => dispatch(contactsOperations.addContacts(name,number)),
 });
 
 export default connect(mapStateToProps,mapDispatchToProps)(ContactForm)
 
 ContactForm.propTypes = {
   addContact: PropTypes.func.isRequired,
-  // contacts: PropTypes.array.isRequired,
+  contacts: PropTypes.array.isRequired,
 
 }
